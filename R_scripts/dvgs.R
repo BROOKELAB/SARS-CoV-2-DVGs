@@ -281,6 +281,8 @@ for(i in seq_along(zero.di)){
 
 sum.table <- lapply(zero.di, select, -DI)
 total.norm.reads <- lapply(sum.table, sum)
+
+names(total.norm.reads) <- names(user.di)
 save(total.norm.reads, file = "total_norm_reads.RData") 
 
 #junction stats per day of infection
@@ -350,5 +352,7 @@ for(i in seq_along(junction.di)){
 
 names(junction.stats) <- names(user.di)
 save(junction.stats, file = "junction_stats.RData")
+
+
 
 
