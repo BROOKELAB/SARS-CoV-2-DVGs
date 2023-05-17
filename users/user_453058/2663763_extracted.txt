@@ -1,0 +1,56 @@
+@NewLibrary: MN985325.1_to_MN985325.1_RevStrand
+13258_to_13181_#_8	Fuzz=1
+13182_to_13257_#_7	Fuzz=1
+13249_to_13180_#_1	Fuzz=3
+27604_to_27532_#_1	Fuzz=0
+27532_to_27604_#_1	Fuzz=0
+13183_to_13246_#_1	Fuzz=3
+@EndofLibrary
+@NewLibrary: MN985325.1_RevStrand_to_MN985325.1
+11546_to_29960_#_1	Fuzz=5
+@EndofLibrary
+@NewLibrary: MN985325.1_RevStrand_to_MN985325.1_RevStrand
+29339_to_29442_#_10	Fuzz=0
+27394_to_75_#_2	Fuzz=9
+29694_to_29759_#_1	Fuzz=0
+21562_to_75_#_1	Fuzz=10
+8896_to_15240_#_1	Fuzz=7
+29668_to_29759_#_1	Fuzz=0
+29870_to_29897_#_1	Fuzz=1
+@EndofLibrary
+@NewLibrary: MN985325.1_to_MN985325.1
+29442_to_29339_#_8	Fuzz=0
+75_to_27394_#_4	Fuzz=9
+29902_to_29870_#_3	Fuzz=1
+29911_to_29870_#_2	Fuzz=1
+29953_to_29870_#_2	Fuzz=1
+29989_to_29870_#_2	Fuzz=1
+29922_to_29870_#_2	Fuzz=1
+75_to_21562_#_2	Fuzz=10
+29894_to_29870_#_2	Fuzz=1
+29994_to_29870_#_1	Fuzz=1
+29759_to_29668_#_1	Fuzz=0
+29919_to_29870_#_1	Fuzz=1
+29918_to_29870_#_1	Fuzz=1
+29897_to_29870_#_1	Fuzz=1
+29921_to_29870_#_1	Fuzz=1
+29903_to_29870_#_1	Fuzz=1
+29904_to_29870_#_1	Fuzz=1
+13884_to_15390_#_1	Fuzz=9
+29974_to_29870_#_1	Fuzz=1
+30001_to_29870_#_1	Fuzz=1
+29759_to_29694_#_1	Fuzz=0
+29895_to_29870_#_1	Fuzz=1
+29984_to_29870_#_1	Fuzz=1
+29915_to_29870_#_1	Fuzz=1
+30038_to_29870_#_1	Fuzz=1
+29942_to_29870_#_1	Fuzz=1
+29940_to_29870_#_1	Fuzz=1
+29896_to_29870_#_1	Fuzz=1
+29893_to_29870_#_1	Fuzz=1
+29920_to_29870_#_1	Fuzz=1
+29900_to_29870_#_1	Fuzz=1
+29914_to_29870_#_1	Fuzz=1
+29901_to_29870_#_1	Fuzz=1
+30034_to_29870_#_1	Fuzz=1
+@EndofLibrary
