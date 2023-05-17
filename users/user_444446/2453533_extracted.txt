@@ -1,0 +1,13 @@
+@NewLibrary: MN985325.1_RevStrand_to_MN985325.1_RevStrand
+27922_to_27949_#_1	Fuzz=1
+12068_to_12320_#_1	Fuzz=2
+@EndofLibrary
+@NewLibrary: MN985325.1_RevStrand_to_MN985325.1
+18179_to_15369_#_1	Fuzz=0
+@EndofLibrary
+@NewLibrary: MN985325.1_to_MN985325.1
+75_to_28266_#_2	Fuzz=11
+12320_to_12068_#_1	Fuzz=2
+75_to_21562_#_1	Fuzz=10
+77_to_26245_#_1	Fuzz=8
+@EndofLibrary

@@ -1,0 +1,27 @@
+@NewLibrary: MN985325.1_to_MN985325.1_RevStrand
+10166_to_10099_#_1	Fuzz=0
+10099_to_10166_#_1	Fuzz=0
+@EndofLibrary
+@NewLibrary: MN985325.1_RevStrand_to_MN985325.1_RevStrand
+28266_to_75_#_8	Fuzz=11
+23584_to_23560_#_7	Fuzz=0
+27922_to_27949_#_1	Fuzz=1
+21562_to_75_#_1	Fuzz=10
+@EndofLibrary
+@NewLibrary: MN985325.1_to_MN985325.1
+75_to_28266_#_6	Fuzz=11
+23560_to_23584_#_5	Fuzz=0
+75_to_21562_#_2	Fuzz=10
+29967_to_29870_#_1	Fuzz=1
+29925_to_29868_#_1	Fuzz=0
+27949_to_27922_#_1	Fuzz=1
+29907_to_29870_#_1	Fuzz=1
+29957_to_29870_#_1	Fuzz=1
+29941_to_29870_#_1	Fuzz=1
+29901_to_29870_#_1	Fuzz=1
+29894_to_29870_#_1	Fuzz=1
+29896_to_29870_#_1	Fuzz=1
+30019_to_29870_#_1	Fuzz=1
+29948_to_29870_#_1	Fuzz=1
+29919_to_29870_#_1	Fuzz=1
+@EndofLibrary
