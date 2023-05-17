@@ -23,6 +23,8 @@ shared.only <- function(dvg){
 }
 
 shared.dvgs <- lapply(dvg.tables, shared.only)
+names(shared.dvgs) <- gsub("dvgs/dvg_","user_",files)
+names(shared.dvgs) <- gsub(".csv","",names(shared.dvgs))
 save(shared.dvgs, file = "shared_dvgs.RData")
 
 shared.names <- list()
