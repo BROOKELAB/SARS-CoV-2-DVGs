@@ -126,31 +126,42 @@ ggplot(data = dvg.distances, aes(x = Bin, y = delta_enrich, color = Bin))+
         legend.position = "none")
 ggsave("figs/enrich_bar.png")
 
-#junction positions vs TRS positions
-positions <- dvg.totals %>%
-  arrange(desc(accumulation))
-positions <- positions[,-3]
+#shared junction positions vs TRS positions
+shared.table <- read.csv("shared_table.csv")
+split <- strsplit(shared.table$junction,"_")
+starts <- as.numeric(sapply(split,"[",1))
+ends <- as.numeric(sapply(split,"[",2))
+shared.table <- shared.table %>%
+  mutate("start_pos" = starts)%>%
+  mutate("end_pos" = ends)%>%
+  select(start_pos,end_pos)%>%
+  arrange(start_pos)%>%
+  mutate(segment = 20-as.numeric(rownames(shared.table)))
+
 sgmrna <- read.csv("sgmrna.csv", header = T)
 sgmrna <- sgmrna %>%
-  mutate("segment" = 11:19)
-top <- positions[c(1:10),]
-top <- top %>%
-  mutate("segment" = 10:1)
+  mutate("segment" = 21:29)
 
-ggplot(top) + 
+ggplot(shared.table) + 
   geom_segment(aes(x=start_pos,xend = end_pos, y = segment, yend = segment),
-               size=1, linetype = 2)+
-  geom_point(aes(x=start_pos,y = segment),color = "blue",size=4)+
-  geom_point(aes(x=end_pos, y = segment), color = "red", size=4)+
-  geom_segment(data = sgmrna,aes(x=start_pos,xend = end_pos, 
-                                 y = segment,yend = segment),
-               size=1, color = "dark grey", linetype = 2)+
-  geom_point(data = sgmrna,aes(x=start_pos,y = segment),
-               size=4, color = "light blue")+
-  geom_point(data = sgmrna,aes(x=end_pos,y = segment),
-             size=4, color = "light pink")+
-  xlab("Junction")+
-  theme_bw()+
+               size=0.5, linetype = 2)+
+  geom_segment(aes(x = 0, xend = start_pos, y = segment, yend = segment), 
+               size=0.5, linetype = 1)+
+  geom_segment(aes(x = end_pos, xend = 29903, y = segment, yend = segment), 
+               size=0.5, linetype = 1)+
+  geom_point(aes(x=start_pos,y = segment),color = "red",size=1)+
+  geom_point(aes(x=end_pos, y = segment), color = "red", size=1)+
+  
+  geom_segment(data = sgmrna,aes(x=start_pos,xend = end_pos, y = segment, yend = segment),
+               size=0.5, linetype = 2)+
+  geom_segment(data = sgmrna, aes(x = 0, xend = start_pos, y = segment, yend = segment), 
+               size=0.5, linetype = 1)+
+  geom_segment(data = sgmrna, aes(x = end_pos, xend = 29903, y = segment, yend = segment), 
+               size=0.5, linetype = 1)+
+  geom_point(data = sgmrna,aes(x=start_pos,y = segment),size=1, color = "black")+
+  geom_point(data = sgmrna,aes(x=end_pos,y = segment),size=1, color = "black")+
+  xlab("Nucleotide position")+
+  theme_classic()+
   theme(axis.title.y = element_blank(),
         axis.text.y = element_blank(),
         axis.ticks.y = element_blank(),
