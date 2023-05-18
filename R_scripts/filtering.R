@@ -18,6 +18,7 @@ filter.window <- function(pre){
   for(i in seq_along(window)){
     filter.list[[i]] <- pre %>%
       filter(!start_pos %in% c((70-i):(70+i)) | !end_pos %in% c((21563-i):(21563+i)))%>% #S
+      filter(!start_pos %in% c((70-i):(70+i)) | !end_pos %in% c((25393-i):(25393+i)))%>% #ORF3a
       filter(!start_pos %in% c((70-i):(70+i)) | !end_pos %in% c((26245-i):(26245+i)))%>% #E
       filter(!start_pos %in% c((70-i):(70+i)) | !end_pos %in% c((26523-i):(26523+i)))%>% #M
       filter(!start_pos %in% c((70-i):(70+i)) | !end_pos %in% c((27202-i):(27202+i)))%>% #ORF6
