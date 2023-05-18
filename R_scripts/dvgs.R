@@ -234,6 +234,7 @@ save(merged, file = "prefilters.RData")
 table.filter <- function(merged.tab){
   merged.tab <- merged.tab %>%
     filter(!start_pos %in% c(55:85) | !end_pos %in% c(21548:21578))%>% #S
+    filter(!start_pos %in% c(55:85) | !end_pos %in% c(25378:25408))%>% #ORF3a
     filter(!start_pos %in% c(55:85) | !end_pos %in% c(26230:26260))%>% #E
     filter(!start_pos %in% c(55:85) | !end_pos %in% c(26508:26538))%>% #M
     filter(!start_pos %in% c(55:85) | !end_pos %in% c(27187:27217))%>% #ORF6
