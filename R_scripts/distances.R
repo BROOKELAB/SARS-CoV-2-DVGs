@@ -149,8 +149,8 @@ ggplot(shared.table) +
                size=0.5, linetype = 1)+
   geom_segment(aes(x = end_pos, xend = 29903, y = segment, yend = segment), 
                size=0.5, linetype = 1)+
-  geom_point(aes(x=start_pos,y = segment),color = "red",size=1)+
-  geom_point(aes(x=end_pos, y = segment), color = "red", size=1)+
+  geom_point(aes(x=start_pos,y = segment),color = "red",size=1.5)+
+  geom_point(aes(x=end_pos, y = segment), color = "red", size=1.5)+
   
   geom_segment(data = sgmrna,aes(x=start_pos,xend = end_pos, y = segment, yend = segment),
                size=0.5, linetype = 2)+
@@ -158,8 +158,8 @@ ggplot(shared.table) +
                size=0.5, linetype = 1)+
   geom_segment(data = sgmrna, aes(x = end_pos, xend = 29903, y = segment, yend = segment), 
                size=0.5, linetype = 1)+
-  geom_point(data = sgmrna,aes(x=start_pos,y = segment),size=1, color = "black")+
-  geom_point(data = sgmrna,aes(x=end_pos,y = segment),size=1, color = "black")+
+  geom_point(data = sgmrna,aes(x=start_pos,y = segment),size=1.5, color = "black")+
+  geom_point(data = sgmrna,aes(x=end_pos,y = segment),size=1.5, color = "black")+
   xlab("Nucleotide position")+
   theme_classic()+
   theme(axis.title.y = element_blank(),
