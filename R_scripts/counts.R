@@ -31,9 +31,5 @@ ggsave("figs/counts_vs_time.png")
 
 all.counts$time <- as.numeric(all.counts$time)
 cor.test(all.counts$time, all.counts$Counts, method = "s")
-#rho = -0.07463869 #p-value = 0.3592
+#rho = -0.07390945  #p-value = 0.3639
 
-
-
-
-#number of unique junctions stays relatively constant over time
