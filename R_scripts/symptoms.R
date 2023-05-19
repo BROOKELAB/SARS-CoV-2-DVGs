@@ -53,7 +53,7 @@ for(i in seq_along(user.symptoms)){
 user.total.symptoms <- unlist(user.total.symptoms)
 corline <- lm(user.total.symptoms ~ dvg.sums.norm) 
 summary(corline)
-#p = 0.1586
+#p = 0.1252
 
 symptom.dvgs <- as_tibble(cbind(dvg.sums.norm, user.total.symptoms))
 ggplot(data = symptom.dvgs, aes(x = dvg.sums.norm, y = user.total.symptoms))+
@@ -81,7 +81,7 @@ for(i in seq_along(user.anosmia)){
 user.total.anosmia <- unlist(user.total.anosmia)
 anosmia.cor <- lm(user.total.anosmia ~ dvg.sums.norm) 
 summary(anosmia.cor)
-#p = 0.2305
+#p = 0.2869
 
 anosmia.dvgs <- as_tibble(cbind(dvg.sums.norm, user.total.anosmia))
 ggplot(data = anosmia.dvgs, aes(x = dvg.sums.norm, y = user.total.anosmia))+
@@ -109,7 +109,7 @@ for(i in seq_along(user.muscle)){
 user.total.muscle <- unlist(user.total.muscle)
 muscle.cor <- lm(user.total.muscle ~ dvg.sums.norm) 
 summary(muscle.cor)
-#p = 0.8445
+#p = 0.9661
 
 muscle.dvgs <- as_tibble(cbind(dvg.sums.norm, user.total.muscle))
 ggplot(data = muscle.dvgs, aes(x = dvg.sums.norm, y = user.total.muscle))+
@@ -136,7 +136,7 @@ for(i in seq_along(user.breath)){
 user.total.breath <- unlist(user.total.breath)
 breath.cor <- lm(user.total.breath ~ dvg.sums.norm) 
 summary(breath.cor)
-#p = 0.3892
+#p = 0.3776
 
 breath.dvgs <- as_tibble(cbind(dvg.sums.norm, user.total.breath))
 ggplot(data = breath.dvgs, aes(x = dvg.sums.norm, y = user.total.breath))+

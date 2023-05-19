@@ -39,7 +39,7 @@ all <- grid.arrange(ctplots[[1]],ctplots[[2]],ctplots[[3]],ctplots[[4]],
                     nrow = 5)
 cor.ct <- list()
 for(i in seq_along(ct)){
-  cor.ct[[i]] <- cor.test(ct[[i]]$ct, ct[[i]]$junction_reads, method  = "spearman")
+  cor.ct[[i]] <- cor.test(ct[[i]]$ct, ct[[i]]$junction_reads, method  = "k")
 }
 names(cor.ct) <- gsub("daily_","",names(dailies))
 
@@ -50,7 +50,8 @@ for(i in seq_along(cor.ct)){
 p.ct <- unlist(p.ct)
 which(p.ct < 0.05)
 
-#15 `451152`(p = 0.01071, rho = -0.8571429)
-#18 `459597`(p = 0.03413, rho = 0.8214286)
+#2  `432870` (p = 0.01591, tau = 0.6479516)
+#15 `451152` (p = 0.01414, tau = -0.7142857)
+
 
 

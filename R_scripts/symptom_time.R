@@ -46,13 +46,13 @@ rs.severe <- list()
 ps.severe <- list()
 for(i in seq_along(all.info[1:11])){ #only those dates with > 2 observations
   rs[[i]] <- cor.test(all.info[[i]]$dvg_reads, all.info[[i]]$total_symptoms, 
-                      method = "pearson")$estimate #pearson since spearman cannot compute with ties
+                      method = "p")$estimate 
   ps[[i]] <- cor.test(all.info[[i]]$dvg_reads, all.info[[i]]$total_symptoms, 
-                   method = "pearson")$p.value
+                   method = "p")$p.value
   rs.severe[[i]] <- cor.test(all.info[[i]]$dvg_reads, all.info[[i]]$severe_symptoms, 
-                             method = "pearson")$estimate
+                             method = "p")$estimate
   ps.severe[[i]] <- cor.test(all.info[[i]]$dvg_reads, all.info[[i]]$severe_symptoms, 
-                             method = "pearson")$p.value
+                             method = "p")$p.value
 }
 rs <- unlist(rs)
 ps <- unlist(ps)

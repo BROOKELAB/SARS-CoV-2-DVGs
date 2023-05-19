@@ -233,15 +233,16 @@ save(merged, file = "prefilters.RData")
 #filter junctions within 15 nts of TRS
 table.filter <- function(merged.tab){
   merged.tab <- merged.tab %>%
-    filter(!start_pos %in% c(55:85) | !end_pos %in% c(21548:21578))%>% #S
-    filter(!start_pos %in% c(55:85) | !end_pos %in% c(26230:26260))%>% #E
-    filter(!start_pos %in% c(55:85) | !end_pos %in% c(26508:26538))%>% #M
-    filter(!start_pos %in% c(55:85) | !end_pos %in% c(27187:27217))%>% #ORF6
-    filter(!start_pos %in% c(55:85) | !end_pos %in% c(27379:27409))%>% #ORF7a
-    filter(!start_pos %in% c(55:85) | !end_pos %in% c(27741:27771))%>% #ORF7b
-    filter(!start_pos %in% c(55:85) | !end_pos %in% c(27879:27909))%>% #ORF8
-    filter(!start_pos %in% c(55:85) | !end_pos %in% c(28259:28289))%>% #N
-    filter(!start_pos %in% c(55:85) | !end_pos %in% c(29543:29573))%>% #ORF10
+    filter(!start_pos %in% c(50:75) | !end_pos %in% c(21537:21567))%>% #S
+    filter(!start_pos %in% c(54:84) | !end_pos %in% c(25370:25400))%>% #ORF3a
+    filter(!start_pos %in% c(54:84) | !end_pos %in% c(26222:26252))%>% #E
+    filter(!start_pos %in% c(50:75) | !end_pos %in% c(26454:26484))%>% #M
+    filter(!start_pos %in% c(54:84) | !end_pos %in% c(27026:27056))%>% #ORF6
+    filter(!start_pos %in% c(54:84) | !end_pos %in% c(27373:27403))%>% #ORF7a
+    filter(!start_pos %in% c(50:75) | !end_pos %in% c(27629:27659))%>% #ORF7b
+    filter(!start_pos %in% c(50:75) | !end_pos %in% c(27869:27899))%>% #ORF8
+    filter(!start_pos %in% c(50:75) | !end_pos %in% c(28241:28271))%>% #N
+    filter(!start_pos %in% c(50:75) | !end_pos %in% c(29515:29545))%>% #ORF10
     return(merged.tab)
 } #sgmrna filtering of 15nts 
 together <- list()

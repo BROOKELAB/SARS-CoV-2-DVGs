@@ -14,57 +14,36 @@ dvg.totals <- aggregate(accumulation ~ start_pos + end_pos,data = dvg.distances,
                         FUN = "sum")
 
 #significance testing
+#bin by percentile of deletion length range
 dvg.range <- range(dvg.distances$distance)
-low.cutoff <- dvg.range[1]+ (0.01*(dvg.range[2]-dvg.range[1])) #first 1% of distance range
-high.cutoff <-  dvg.range[2] - (0.15*(dvg.range[2]-dvg.range[1])) #last 15% of distance range
+cutoff <- dvg.range[1]+ (0.01*(dvg.range[2]-dvg.range[1])) #first 1% of distance range
+
 dvg.distances <- dvg.distances %>%
   mutate("Bin"= NA)
+dvg.distances[which(dvg.distances$distance <= cutoff),]$Bin <- "1%"
+length(which(dvg.distances$Bin == "1%")) #255 junctions
+dvg.distances[which(dvg.distances$distance > cutoff),]$Bin <- "2-100%"
+length(which(dvg.distances$Bin == "2-100%")) #54 junctions
 
-for(i in seq_along(dvg.distances$distance)){
-  if(0 < dvg.distances$distance[[i]] && dvg.distances$distance[[i]] <= low.cutoff){
-    dvg.distances$Bin[[i]] <- "1"
-  }
-  if(low.cutoff < dvg.distances$distance[[i]] && dvg.distances$distance[[i]] <= high.cutoff){
-    dvg.distances$Bin[[i]] <- "2"
-  }
-  if(high.cutoff < dvg.distances$distance[[i]] && dvg.distances$distance[[i]] <= 30000){
-    dvg.distances$Bin[[i]] <- "3"
-  }
-}
 dvg.distances$Bin <- as.factor(dvg.distances$Bin)
 
-dunn.accumulation <- dunnTest(accumulation ~ Bin, data = dvg.distances,
-                              method = "bonferroni")
-#1 vs 2: p.adj = 0.0324428071
-#1 vs 3 p.adj = 0.0561867796
-#2 vs 3: p.adj = 0.0005980824
+median(dvg.distances[which(dvg.distances$Bin == "1%"),]$accumulation) #25.74515
+median(dvg.distances[which(dvg.distances$Bin == "2-100%"),]$accumulation) #17.77993
 
-dunn.enrich <- dunnTest(delta_enrich ~ Bin, data = dvg.distances,
-                        method = "bonferroni")
-#1 vs 2: p.adj = 0.075049122
-#1 vs 3 p.adj = 0.008308182
-#2 vs 3: p.adj = 1.000000000
+median(dvg.distances[which(dvg.distances$Bin == "1%"),]$delta_enrich) #0.1282061
+median(dvg.distances[which(dvg.distances$Bin == "2-100%"),]$delta_enrich) #0.2105919
 
-#medians
-bin1 <- dvg.distances[which(dvg.distances$Bin == "1"),]
-bin2 <- dvg.distances[which(dvg.distances$Bin == "2"),]
-bin3 <- dvg.distances[which(dvg.distances$Bin == "3"),]
-median(bin1$accumulation) #25.74515
-median(bin2$accumulation) #19.63858
-median(bin3$accumulation) #65.83058
+kw.acc <- kruskal.test(dvg.distances$accumulation ~ dvg.distances$Bin) #p-value = 0.001792
+kw.enr <- kruskal.test(dvg.distances$delta_enrich ~ dvg.distances$Bin) #p-value = 0.031
 
-median(bin1$delta_enrich) #0.1046606
-median(bin2$delta_enrich) #0.1600003
-median(bin3$delta_enrich) #0.1571062
-
-#junction length vs total accumulation
+#deletion length vs total accumulation
 ggplot(data = dvg.distances, aes(x = distance, y = accumulation, color = Bin))+
   geom_point(cex = 3, shape = 1)+
   xlab("Deletion length")+
   ylab("DVG accumulation")+
   scale_x_continuous(limits = c(0,30000), breaks = c(0,10000,20000,30000))+
   scale_y_continuous(limits = c(0,1500), breaks = c(0,500,1000,1500))+
-  scale_color_manual(values = c("red","black","blue"))+
+  scale_color_manual(values = c("red","blue"))+
   theme_bw()+
   theme(axis.title = element_text(size = 22),
         axis.text = element_text(size = 19),
@@ -72,19 +51,20 @@ ggplot(data = dvg.distances, aes(x = distance, y = accumulation, color = Bin))+
         legend.text = element_text(size = 19))
 ggsave("figs/accumulation.png")
 
-acc.matrix <- as.data.frame(matrix(nrow = 3, ncol = 4, data = NA))
+acc.matrix <- as.data.frame(matrix(nrow = 1, ncol = 4, data = NA))
 colnames(acc.matrix) <- c("group1","group2","p.adj","p.sig")
-acc.matrix$group1 <- c("1","1","2")
-acc.matrix$group2 <- c("2","3","3")
-acc.matrix$p.adj <- dunn.accumulation$res$P.adj
-acc.matrix$p.sig <- c("*","ns","***")
+acc.matrix$group1 <- c("1%")
+acc.matrix$group2 <- c("2-100%")
+acc.matrix$p.adj <- kw.acc$p.value
+acc.matrix$p.sig <- c("**")
 
+set.seed(1)
 ggplot(data = dvg.distances, aes(x = Bin, y = accumulation, color = Bin))+
   geom_jitter(cex = 3, shape = 1)+
   ylab("Accumulation")+
   scale_y_continuous(limits = c(-0.01,1500), breaks = c(0,500,1000,1500))+
-  scale_color_manual(values = c("red","black","blue"))+
-  stat_pvalue_manual(acc.matrix, label = "p.sig", y.position = c(1450,1200,950), size = 7)+
+  scale_color_manual(values = c("red","blue"))+
+  stat_pvalue_manual(acc.matrix, label = "p.sig", y.position = c(1400), size = 7)+
   stat_summary(fun = "median", geom = "crossbar", width = .5, color = "black")+
   theme_bw()+
   theme(axis.title = element_text(size = 22),
@@ -92,13 +72,13 @@ ggplot(data = dvg.distances, aes(x = Bin, y = accumulation, color = Bin))+
         legend.position = "none")
 ggsave("figs/accumulation_bar.png")
 
-#junction length vs enrichment over time
+#deletion length vs enrichment over time
 ggplot(data = dvg.distances, aes(x = distance, y = delta_enrich, color = Bin))+
   geom_point(cex = 3, shape = 1)+
   xlab("Deletion length")+
   ylab("DVG enrichment")+
   scale_x_continuous(limits = c(0,30000), breaks = c(0,10000,20000,30000))+
-  scale_color_manual(values = c("red","black","blue"))+
+  scale_color_manual(values = c("red","blue"))+
   theme_bw()+
   theme(axis.title = element_text(size = 22),
         axis.text = element_text(size = 19),
@@ -106,19 +86,20 @@ ggplot(data = dvg.distances, aes(x = distance, y = delta_enrich, color = Bin))+
         legend.text = element_text(size = 19))
 ggsave("figs/enrichment.png")
 
-en.matrix <- as.data.frame(matrix(nrow = 3, ncol = 4, data = NA))
+en.matrix <- as.data.frame(matrix(nrow = 1, ncol = 4, data = NA))
 colnames(en.matrix) <- c("group1","group2","p.adj","p.sig")
-en.matrix$group1 <- c("1","1","2")
-en.matrix$group2 <- c("2","3","3")
-en.matrix$p.adj <- dunn.enrich$res$P.adj
-en.matrix$p.sig <- c("ns","**","ns")
+en.matrix$group1 <- c("1%")
+en.matrix$group2 <- c("2-100%")
+en.matrix$p.adj <- kw.enr$p.value
+en.matrix$p.sig <- c("*")
 
+set.seed(1)
 ggplot(data = dvg.distances, aes(x = Bin, y = delta_enrich, color = Bin))+
   geom_jitter(cex = 3, shape = 1)+
   ylab("Enrichment")+
-  scale_y_continuous(limits = c(-0.01,1.5), breaks = c(0,.25,.5,.75,1))+ 
-  scale_color_manual(values = c("red","black","blue"))+
-  stat_pvalue_manual(en.matrix, label = "p.sig", y.position = c(1.45,1.3,1.15), size = 7)+
+  scale_y_continuous(limits = c(-0.01,1.25), breaks = c(0,.25,.5,.75,1))+ 
+  scale_color_manual(values = c("red","blue"))+
+  stat_pvalue_manual(en.matrix, label = "p.sig", y.position = c(1.2), size = 7)+
   stat_summary(fun = "median", geom = "crossbar", width = .5, color = "black")+
   theme_bw()+
   theme(axis.title = element_text(size = 22),
@@ -136,11 +117,11 @@ shared.table <- shared.table %>%
   mutate("end_pos" = ends)%>%
   select(start_pos,end_pos)%>%
   arrange(start_pos)%>%
-  mutate(segment = 20-as.numeric(rownames(shared.table)))
+  mutate(segment = 19-as.numeric(rownames(shared.table)))
 
 sgmrna <- read.csv("sgmrna.csv", header = T)
 sgmrna <- sgmrna %>%
-  mutate("segment" = 21:29)
+  mutate("segment" = 20:29)
 
 ggplot(shared.table) + 
   geom_segment(aes(x=start_pos,xend = end_pos, y = segment, yend = segment),
@@ -149,8 +130,8 @@ ggplot(shared.table) +
                size=0.5, linetype = 1)+
   geom_segment(aes(x = end_pos, xend = 29903, y = segment, yend = segment), 
                size=0.5, linetype = 1)+
-  geom_point(aes(x=start_pos,y = segment),color = "red",size=1)+
-  geom_point(aes(x=end_pos, y = segment), color = "red", size=1)+
+  geom_point(aes(x=start_pos,y = segment),color = "red",size=1.5)+
+  geom_point(aes(x=end_pos, y = segment), color = "red", size=1.5)+
   
   geom_segment(data = sgmrna,aes(x=start_pos,xend = end_pos, y = segment, yend = segment),
                size=0.5, linetype = 2)+
@@ -158,8 +139,8 @@ ggplot(shared.table) +
                size=0.5, linetype = 1)+
   geom_segment(data = sgmrna, aes(x = end_pos, xend = 29903, y = segment, yend = segment), 
                size=0.5, linetype = 1)+
-  geom_point(data = sgmrna,aes(x=start_pos,y = segment),size=1, color = "black")+
-  geom_point(data = sgmrna,aes(x=end_pos,y = segment),size=1, color = "black")+
+  geom_point(data = sgmrna,aes(x=start_pos,y = segment),size=1.5, color = "black")+
+  geom_point(data = sgmrna,aes(x=end_pos,y = segment),size=1.5, color = "black")+
   xlab("Nucleotide position")+
   theme_classic()+
   theme(axis.title.y = element_blank(),
