@@ -1,8 +1,8 @@
-"","V1","V2","V3","V4","V5","V6","V7","V8","V9","V10"
-"DI","29339_29424","29323_29442","29520_29594","29443_29554","29668_29759","13095_13131","17446_17751","12733_13095","76_26480","75_27047"
-"normalized_reads_1","11.79171","22.06168",NA,NA,NA,NA,NA,NA,NA,NA
-"normalized_reads_2",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"normalized_reads_3",NA,NA,"20.86505","10.73947",NA,NA,NA,NA,NA,NA
-"normalized_reads_4"," 52.06084"," 65.17160",NA,NA,"109.51428",NA,NA,NA,NA,NA
-"normalized_reads_5",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"normalized_reads_6",NA,NA,NA,NA,NA,"18.04002","11.27509","21.42245","18.04002","14.65757"
+"","V1","V2","V3","V4","V5","V6","V7","V8","V9"
+"DI","29339_29424","29323_29442","29520_29594","29443_29554","29668_29759","13095_13131","17446_17751","12733_13095","76_26480"
+"normalized_reads_1","11.79171","22.06168",NA,NA,NA,NA,NA,NA,NA
+"normalized_reads_2",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"normalized_reads_3",NA,NA,"20.86505","10.73947",NA,NA,NA,NA,NA
+"normalized_reads_4"," 52.06084"," 65.17160",NA,NA,"109.51428",NA,NA,NA,NA
+"normalized_reads_5",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"normalized_reads_6",NA,NA,NA,NA,NA,"18.04002","11.27509","21.42245","18.04002"
